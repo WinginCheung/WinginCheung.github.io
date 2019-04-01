@@ -1,7 +1,7 @@
 # Site settings
 title: Wingin Cheung's Blog
 SEOTitle: Wingin Cheung's Blog
-header-img: img/post-bg-desk.jpg
+header-img: img/post-bg-desk.jpeg
 email: wingincheung@outlook.com
 description: "Every failure is leading towards success."
 keyword: "Wingin Cheung, Wingin Cheung's Blog"
@@ -12,7 +12,7 @@ github_repo: "https://github.com/WinginCheung/WinginCheung.github.io.git" # you 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
 sidebar-about-description: "As Dead As a Dodo~"
-sidebar-avatar: /img/about--gentle.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: /img/about-WinginCheung-gentle.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 

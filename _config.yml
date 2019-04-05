@@ -11,7 +11,7 @@ github_repo: "https://github.com/WinginCheung/WinginCheung.github.io.git" # you 
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "As Dead as a Dodo~"
+sidebar-about-description: "As dead as a Dodo~"
 sidebar-avatar: /img/about-WinginCheung-gentle.jpg     # use absolute URL, seeing it's used in both `/` and `/about/`
 
 

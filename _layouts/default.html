@@ -11,10 +11,9 @@
     {{ content }}
 
     {% include footer.html %}
+    
+    {% if page.mermaid %}<script src="/js/mermaid.full.js"></script>{% endif %}
 
-
-<!-- Image to hack wechat -->
-<img src="/img/apple-touch-icon.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
 </body>

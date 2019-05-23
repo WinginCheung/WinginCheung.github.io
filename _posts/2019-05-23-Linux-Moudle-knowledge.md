@@ -190,4 +190,4 @@ name:            module_hello
 vermagic:        4.15.0-50-generic SMP mod_unload
 ```
 
-    什么都看完了，module会完了吧？那跪安吧，哈哈～
+    什么都看完了，module会玩了吧？那跪安吧，哈哈～

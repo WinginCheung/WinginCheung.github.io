@@ -187,10 +187,7 @@ fi
 
 ```shell
 workusr@workPC:~/tag_repo$ ssh 192.168.1.200 -l git
-git@192.168.1.200's password:
-
-...
-
+git@192.168.1.200\'s password:
 git@gitserver:~$ cd ~/repository
 git@gitserver:~/repository$ git init --bare manifests.git
 Initialized empty Git repository in /home/git/repository/manifests.git/

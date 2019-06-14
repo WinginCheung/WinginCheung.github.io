@@ -329,36 +329,38 @@ Markdown并无下划线的原生语法，会与超链接的默认样式产生混
 
  * 代码块：代码块前后一行均加三个"`"（反引号），如：
 
-   ```
+   ```markdown
    ​```c
+   
    #include <stdio.h>
    
    int main(int argc, char **argv){
-       printf("Hellow Wrold.\n");
+       printf("Hellow World.\n");
        return 0;
    }
    ​```
-```
+   ```
    
-效果如下：
+   效果如下：
    
-   >```c
-   >#include <stdio.h>
-   >
-   >int main(int argc, char **argv){
-   >    printf("Hellow Wrold.\n");
-   >    return 0;
-   >}
-   >```
-
+   ```c
+   #include <stdio.h>
+   
+   
+   int main(int argc, char **argv){
+       printf("Hellow World.\n");
+       return 0;
+   }
+   ```
 ## 11、流程图
 
 流程图大致分为两段，第一段定义元素，第二段定义元素间的走向。
 
 1. 定义元素的语法：
-```
-tag => type: content:>url
-```
+
+    ```markdown
+    tag => type: content:>url
+    ```
 
     + tag是元素名字
     + type是元素类型，包括以下几种：
@@ -373,91 +375,102 @@ tag => type: content:>url
 
 2. 连接元素的语法：
 
-   用"->"来连接两个元素。如果是condition类型，有yes和no两个分支，均需要明确指出：
-```
-cond(yes)->op_yes
-cond(no)->op_no
-```
+    用"->"来连接两个元素。如果是condition类型，有yes和no两个分支，均需要明确指出：
 
-下面，以经典的求1+2+3+…+100的和为例，画出对应的流程图。
+    ```markdown
+    cond(yes)->op_yes
+    cond(no)->op_no
+    ```
 
-*Tips：以下代码可在Typora中显示流程图，在jekyll中无法正常显示*
-```
-st=>start: start
-op1=>operation: int i = 0, sum = 0
-op2=>operation: sum+=i
-op3=>operation: i++
-cond=>condition: i>100?
-op4=>operation: printf(sum)
-e=>end: end
+    下面，以经典的求1+2+3+…+100的和为例，画出对应的流程图。
 
-st->op1->op2->op3->cond
-cond(yes)->op4->e
-cond(no)->op2
+    *Tips：以下代码可在Typora中显示流程图，在jekyll中无法正常显示*
+
+    ***请去掉首行````flow \\`中的" \\"***
+    
+    ```markdown
+    ​```flow \
+    st=>start: start
+    op1=>operation: int i = 0, sum = 0
+    op2=>operation: sum+=i
+    op3=>operation: i++
+    cond=>condition: i>100?
+    op4=>operation: printf(sum)
+    e=>end: end
+    
+    st->op1->op2->op3->cond
+    cond(yes)->op4->e
+    cond(no)->op2
 ​```
-```
+    ```
 
-*Tips：以下代码用于在jekyll中结合mermaid显示流程图*
-```
-​```html
-<div class="mermaid">
-graph TD;
-    st(start);
-    op1[int i = 0, sum = 0];
-    op2[sum+=i];
-    op3[i++];
-    cond{i>100?};
-    op4[printf&#40sum&#41];
-    e(end);
-    st-->op1;
-    op1-->op2;
-    op2-->op3;
-    op3-->cond;
-    cond-->|yes|op4;
-    cond-->|no|op2;
+    *Tips：以下代码用于在jekyll中结合mermaid显示流程图*
+    
+    ***请去掉首行````html \\`中的" \\"***
+    
+    ```markdown
+    ​```html \
+    <div class="mermaid">
+    graph TD;
+        st(start);
+        op1[int i = 0, sum = 0];
+        op2[sum+=i];
+        op3[i++];
+        cond{i>100?};
+        op4[printf&#40sum&#41];
+        e(end);
+        st-->op1;
+        op1-->op2;
+        op2-->op3;
+        op3-->cond;
+        cond-->|yes|op4;
+        cond-->|no|op2;
     op4-->e;
-</div>
+    </div>
 ​```
-```
+    ```
+    
+    效果如下：
+    
+    > <div class="mermaid">
+    > graph TD;
+    >     st(start);
+    >     op1[int i = 0, sum = 0];
+    >     op2[sum+=i];
+    >     op3[i++];
+    >     cond{i>100?};
+    >     op4[printf&#40sum&#41];
+    >     e(end);
+    >     st-->op1;
+    >     op1-->op2;
+    >     op2-->op3;
+    >     op3-->cond;
+>     cond-->|yes|op4;
+    >     cond-->|no|op2;
+>     op4-->e;
+    > </div>
+    
+    对应的c语言代码为：
+    
+    ```c
+    #include <stdio.h>
+    
+    
+    int main(int argc, char **argv){
+        int i = 0, sum = 0;
+    
+        do{
+            sum += i;
+            i++;
+        }while(!(i > 100 ));
+    
+        printf("sum = %d\n", sum);
+    
+        return 0;
+    }
+    ```
 
-效果如下:
 
-<div class="mermaid">
-graph TD;
-    st(start);
-    op1[int i = 0, sum = 0];
-    op2[sum+=i];
-    op3[i++];
-    cond{i>100?};
-    op4[printf&#40sum&#41];
-    e(end);
-    st-->op1;
-    op1-->op2;
-    op2-->op3;
-    op3-->cond;
-    cond-->|yes|op4;
-    cond-->|no|op2;
-    op4-->e;
-</div>
-
-对应的c语言代码为：
-
-```c
-#include <stdio.h>
-
-int main(int argc, char **argv){
-  int i = 0, sum = 0;
-  
-  do{
-    sum += i;
-    i++;
-  }while(!(i > 100 ));
-  
-  printf("sum = %d\n", sum);
-  
-  return 0;
-}
-```
 
 ## 12、目录
 

@@ -254,7 +254,7 @@ remote="github"
 若中间包含其它节点，如copyflie节点，则为：
 
 ```xml
-<project ...
+<project ... >
     <copyfile ... />
 </project>
 ```

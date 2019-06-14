@@ -329,9 +329,10 @@ Markdown并无下划线的原生语法，会与超链接的默认样式产生混
 
  * 代码块：代码块前后一行均加三个"`"（反引号），如：
 
-   ```markdown
-   ​```c
+   ***请去掉首行````c \\`中的" \\"***
    
+   ```markdown
+   ​```c \
    #include <stdio.h>
    
    int main(int argc, char **argv){
@@ -414,7 +415,7 @@ Markdown并无下划线的原生语法，会与超链接的默认样式产生混
     ```markdown
     ​```html \
     <div class="mermaid">
-    graph TD;
+        graph TD;
         st(start);
         op1[int i = 0, sum = 0];
         op2[sum+=i];
@@ -428,7 +429,7 @@ Markdown并无下划线的原生语法，会与超链接的默认样式产生混
         op3-->cond;
         cond-->|yes|op4;
         cond-->|no|op2;
-    op4-->e;
+        op4-->e;
     </div>
 ​```
     ```
@@ -436,7 +437,7 @@ Markdown并无下划线的原生语法，会与超链接的默认样式产生混
     效果如下：
     
     > <div class="mermaid">
-    > graph TD;
+    >     graph TD;
     >     st(start);
     >     op1[int i = 0, sum = 0];
     >     op2[sum+=i];
@@ -448,28 +449,26 @@ Markdown并无下划线的原生语法，会与超链接的默认样式产生混
     >     op1-->op2;
     >     op2-->op3;
     >     op3-->cond;
->     cond-->|yes|op4;
+    >     cond-->|yes|op4;
     >     cond-->|no|op2;
->     op4-->e;
+    >     op4-->e;
     > </div>
-
+    
     对应的c语言代码为：
     
     ```c
-    #include <stdio.h>
-
-
-​    
-    int main(int argc, char **argv){
-        int i = 0, sum = 0;
+    #inlucde <stdio.h>
     
+    
+    int main(int argc, char **argv){
+        int i = 0;
         do{
             sum += i;
             i++;
-        }while(!(i > 100 ));
-    
+        } while( !(i > 100));
+        
         printf("sum = %d\n", sum);
-    
+        
         return 0;
     }
     ```

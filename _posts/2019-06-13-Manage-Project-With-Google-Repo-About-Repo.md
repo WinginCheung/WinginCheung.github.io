@@ -32,7 +32,34 @@ $ curl https://mirrors.tuna.tsinghua.edu.cn/git/git-repo -o repo
 $ chmod +x repo
 ```
 
+***注：Repo安装及其使用不建议使用超级管理员权限执行！否则可能会出现一些异常情况，例如权限受限（Permission denied）：***
+
+```shell
+$ repo init -u git@192.168.1.200:/home/git/repository/manifests.git
+Get https://mirrors.tuna.tsinghua.edu.cn/git/git-repo
+
+...
+
+type commit
+tag v1.13.3
+tagger Mike Frysinger <vapier@google.com> 1559612018 -0400
+
+repo 1.13.3
+
+gpg: WARNING: unsafe owership on homedir '/home/workusr/.repoconfig/gnupg'
+gpg: failed to create temporary file '/home/workusr/.repoconfig/gnupg/.#lk0x00005647f9f17a70.server.25250': Permission denied
+gpg: keyblock resource '/home/workusr/.repoconfig/gnupg/pubring.kbx': Permission denied
+gpg: Signature made Tue 04 Jun 2019 09:33:39 AM CST
+gpg:                using DSA key 8BB9AD73E8E6153AF0F9A4416530D6R920F6C65
+gpg:                issuer "repo@android.kernel.org"
+gpg: Can't signature: No public key
+```
+
+
+
 ## 3、Repo更新
+
+### 3.1 修改REPO_URL
 
 repo的运行过程中会尝试访问官方的git源更新自己，如果想使用tuna的镜像源进行更新，可以将如下内容写入到`~/.bashrc`或者`/etc/bash.bashrc`里：
 
@@ -51,3 +78,29 @@ if not REPO_URL:
 REPO_REV = 'stable'
 ...
 ```
+
+### 3.2 Repo仓库本地化
+
+每次运行repo init命令时，repo将会尝试更新自己，但有时网络异常时，我们将无法连接到指定的`REPO_URL`服务器更新repo，造成无法创建仓库：
+
+```shell
+$ repo init -u <url>
+fatal: Cannot get https://mirrors.tuna.tsinghua.edu.cn/git/git-repo/clone.bundle
+fatal: error [Error -2] Name or server not known
+fatal: cloning the git-repo repository failed, will remove '.repo/repo'
+```
+
+为了解决此问题，我们可以将repo仓库备份到指定服务器，在指定服务器中执行以下操作：
+
+```shell
+$ git clone --mirror https://mirrors.tuna.tsinghua.edu.cn/git/git-repo
+```
+
+并将REPO_URL上述REPO_URL修改为指定服务器的repo仓库即可。
+
+如需更新指定服务器中的repo仓库，可在指定服务器中的repo仓库下执行以下指令：
+
+```shell
+$ git fetch
+```
+

@@ -317,7 +317,7 @@ Markdown并无下划线的原生语法，会与超链接的默认样式产生混
 
 ## 10、代码
 
- * 单行代码： 代码左右分别加"·"，如
+ * 单行代码： 代码左右分别加"`"（反引号），如
 
    ```
    `这是单行代码`
@@ -327,20 +327,21 @@ Markdown并无下划线的原生语法，会与超链接的默认样式产生混
 
    >`这是单行代码`
 
- * 代码块：代码块前后一行均加三个"·"，如：
+ * 代码块：代码块前后一行均加三个"`"（反引号），如：
 
    ```
-   ```c
+   ​```c
    #include <stdio.h>
    
    int main(int argc, char **argv){
        printf("Hellow Wrold.\n");
        return 0;
    }
-   ```
-
-   效果如下：
-
+   ​```
+```
+   
+效果如下：
+   
    >```c
    >#include <stdio.h>
    >
@@ -382,7 +383,6 @@ cond(no)->op_no
 
 *Tips：以下代码可在Typora中显示流程图，在jekyll中无法正常显示*
 ```
-```flow
 st=>start: start
 op1=>operation: int i = 0, sum = 0
 op2=>operation: sum+=i
@@ -394,11 +394,12 @@ e=>end: end
 st->op1->op2->op3->cond
 cond(yes)->op4->e
 cond(no)->op2
+​```
 ```
 
 *Tips：以下代码用于在jekyll中结合mermaid显示流程图*
 ```
-```html
+​```html
 <div class="mermaid">
 graph TD;
     st(start);
@@ -416,6 +417,7 @@ graph TD;
     cond-->|no|op2;
     op4-->e;
 </div>
+​```
 ```
 
 效果如下:

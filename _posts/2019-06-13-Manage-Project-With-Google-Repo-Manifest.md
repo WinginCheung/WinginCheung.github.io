@@ -148,7 +148,7 @@ review="review.cyanogenmod.org"
 
 指定默认git分支，可以是master, refs/heads/master, tag或者SHA-1值。如：
 
-- `master`，可定义为：
+- 指定branch为`master`，可定义为：
 
 - ```xml
     revision="master"
@@ -160,7 +160,7 @@ review="review.cyanogenmod.org"
     revision="refs/heads/master"
     ```
 
-- `refs/heads/cm-14.1`，可定义为：
+- 指定branch为`cm-14.1`，可定义为：
 
     ```xml
     revision="cm-14.1"
@@ -172,13 +172,13 @@ review="review.cyanogenmod.org"
     revision="refs/heads/cm-14.1"
     ```
 
-- `refs/tags/android-7.1.1_r6`，只能定义为：
+- 指定tag为`android-7.1.1_r6`，只能定义为：
 
     ```xml
     revision="refs/tags/android-7.1.1_r6"
     ```
 
-- 定义为SHA-1值为cf351d8c83d5ad166744f6b6ffbb831419722782的commit：
+- 定义为SHA-1值为`cf351d8c83d5ad166744f6b6ffbb831419722782`的commit：
 
     ```xml
     revision="cf351d8c83d5ad166744f6b6ffbb831419722782"

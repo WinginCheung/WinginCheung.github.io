@@ -118,7 +118,7 @@ name="github"
 
 git URL，是相关project的git URL前缀；如上边的：
 
-- 指定仓库下载的位置为本manifest工程的上一级目录：
+- 指定仓库下载的位置为本manifest工程仓库所在目录的上一级目录：
 
 - ```xml
     fetch=".."
@@ -138,7 +138,7 @@ git URL，是相关project的git URL前缀；如上边的：
 
 ### 3.4 review
 
-指定Gerrit服务器，用于`repo upload`操作，若未指定，则`repo upload`操作无效。如设定gerrit代码审核服务器的位置为`review.cyanogenmod.org`：
+指定Gerrit审核服务器，用于`repo upload`操作，若未指定，则`repo upload`操作无效。如设定gerrit代码审核服务器的位置为`review.cyanogenmod.org`：
 
 ```xml
 review="review.cyanogenmod.org"
@@ -146,11 +146,43 @@ review="review.cyanogenmod.org"
 
 ### 3.5 revision
 
-指定默认git分支。如设定默认git分支为`refs/tags/android-7.1.1_r6`：
+指定默认git分支，可以是master, refs/heads/master, tag或者SHA-1值。如：
 
-```xml
-revision="refs/tags/android-7.1.1_r6"
-```
+- `master`，可定义为：
+
+- ```xml
+    revision="master"
+    ```
+
+    或者明确定义为：
+
+    ```xml
+    revision="refs/heads/master"
+    ```
+
+- `refs/heads/cm-14.1`，可定义为：
+
+    ```xml
+    revision="cm-14.1"
+    ```
+
+    或者明确定义为：
+
+- ```xml
+    revision="refs/heads/cm-14.1"
+    ```
+
+- `refs/tags/android-7.1.1_r6`，只能定义为：
+
+    ```xml
+    revision="refs/tags/android-7.1.1_r6"
+    ```
+
+- 定义为SHA-1值为cf351d8c83d5ad166744f6b6ffbb831419722782的commit：
+
+    ```xml
+    revision="cf351d8c83d5ad166744f6b6ffbb831419722782"
+    ```
 
 ## 4、default元素
 
@@ -165,23 +197,11 @@ revision="refs/tags/android-7.1.1_r6"
 
 ### 4.1 revision
 
-指定默认git分支，如：
-
-- `master`：
-
-- ```xml
-  revision="master"
-  ```
-
-- `refs/heads/cm-14.1`：
-
-- ```xml
-  revision="refs/heads/cm-14.1"
-  ```
+指定默认git分支，参考`3.5 revision`。
 
 ### 4.2 remote
 
-指定默认远程服务器为上边remote元素中声明的服务器，如`github`：
+指定默认远程服务器为上边remote元素中已声明的服务器name字段，如`github`：
 
 ```xml
 remote="github"
@@ -278,7 +298,7 @@ path="build/blueprint"
 
 ### 6.8 revision
 
-指定需要获取的git分支，可以是master, refs/heads/master, tag或者SHA-1值；
+指定默认git分支，参考`3.5 revision`。
 
 ### 6.9 sync_c
 

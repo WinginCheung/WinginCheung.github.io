@@ -9,6 +9,7 @@ catalog: true
 mermaid: true
 tags:
     - repo
+    - example
 ---
 
 # 用Google Repo管理多仓库项目之范例
@@ -96,38 +97,8 @@ tags:
     * master
     ```
 
-    
 
 ## 2、客户端
-
-为了显示客户端项目仓库的tag信息，我们准备一个名为ls_tag.sh的脚本用于显示指定目录下的git项目目录并打印相关tag信息：
-
-```shell
-#!/bin/sh
-
-# file name: ls_tag.sh
-# how to use: ls_tag.sh <path>
-
-ls_tag(){
-    for dir in `ls $1`; do \
-        if [ -d "$1/${dir}" ]; then \
-            if [ -d "$1/${dir}/.git" ]; then \
-                echo $1/$dir":"
-                cd $1/$dir
-                git tag
-            else \
-                ls_tag $1/$dir
-            fi     
-        fi  
-    done
-}
-
-if [ "$1"x == ""x ]; then \
-    echo "Usage: " $0 " <path>"
-else \
-    ls_tag $1
-fi
-```
 
 我们假定集成所有git仓库管理的客户端信息如下：
 
@@ -147,15 +118,31 @@ fi
     |-- external
     |   |-- apps
     |   |   |-- chromium
+    |   |       |-- chromium.c
+    |   |       |-- ...
     |   |-- tcpdump
+    |   |   |-- tcpdump.c
+    |   |   |-- ...
     |   |-- ping
+    |       |-- ping.c
+    |       |-- ...
     |-- drivers
     |   |-- gps
+    |   |   |-- gps.c
+    |   |   |-- ...
     |   |-- wlan
+    |       |-- wlan.c
+    |       |-- ...
     |-- others
         |-- akm
+        |   |-- akm.c
+        |   |-- ...
         |-- marvell
+        |   |-- marvell.c
+        |   |-- ...
         |-- nfc
+            |-- nfc.c
+            |-- ...
     ```
 
 + 期望的仓库版本信息：
@@ -192,7 +179,6 @@ git@gitserver:~$ cd ~/repository
 git@gitserver:~/repository$ git init --bare manifests.git
 Initialized empty Git repository in /home/git/repository/manifests.git/
 git@gitserver:~/repository$ exit
-workusr@workPC:~/tag_repo$
 ```
 
 我们在客户端中clone远程git服务器中的manifests.git仓库：
@@ -201,7 +187,6 @@ workusr@workPC:~/tag_repo$
 workusr@workPC:~$ git clone git@192.168.1.200:/home/git/repository/manifests.git
 Cloning into 'manifests'...
 warning: You appear to have cloned an empty repository.
-workusr@workPC:~$
 ```
 
 好了，我们现在开始编辑default.xml文件：
@@ -249,6 +234,122 @@ workusr@workPC:~/manifests$ git push origin master
 OK，一切准备就绪，我们开始初始化tag_repo目录：
 
 ```shell
+workusr@workPC:~/manifests$ mkdir -p ~/tag_repo
+workusr@workPC:~/manifests$ cd ~/tag_repo
 workusr@workPC:~/tag_repo$ repo init -u git@192.168.1.200:/home/git/repository/manifest.git
+...
 workusr@workPC:~/tag_repo$ repo sync
+...
 ```
+
+## 5、创建分支
+
+`repo sync`完成后，所有的仓库均处于no branch状态，不能进行仓库操作
+
+```shell
+workusr@workPC:~/tag_repo$ repo branch
+    (no branches)
+```
+
+我们需要对指定项目初始化分支，例如对所有项目：
+
+```shell
+workusr@workPC:~/tag_repo$ repo start newbranch --all
+```
+
+也可以只对ping子项目：
+
+```shell
+workusr@workPC:~/tag_repo$ repo start pingbranch external/ping
+```
+
+初始化分支后，我们可以使用`repo branch`查看：
+
+```shell
+workusr@workPC:~/tag_repo$ repo branch
+...
+*  newbranch                | in all projects
+*  pingbranch               | in external/ping
+```
+
+## 6、项目文件修改及其提交
+
+初始化分支后，我们接下来的操作与git相同。
+
+现在我们来修改文件并提交相关修改，以下以子项目ping中的ping.c修改为例。
+
+我们先查看一下创建分支后我们所有项目的状态：
+
+```shell
+workusr@workPC:~/tag_repo$ repo status
+...
+project external/apps/chromium/            branch newbranch
+project external/tcpdump/                  branch newbranch
+project external/ping/                     branch pingbranch
+project drivers/gps/                       branch newbranch
+project drivers/wlan/                      branch newbranch
+project others/akm/                        branch newbranch
+project others/marvell/                    branch newbranch
+project others/nfc/                        branch newbranch
+```
+
+下面我们进行文件修改操作，例如在ping.c最后添加一句“hello world“，然后再查看一下项目状态：
+
+```shell
+workusr@workPC:~/tag_repo$ cd external/ping
+workusr@workPC:~/tag_repo/external/ping$ echo "hello world." >> ping.c
+workusr@workPC:~/tag_repo/external/ping$ repo status
+...
+project external/apps/chromium/            branch newbranch
+project external/tcpdump/                  branch newbranch
+project external/ping/                     branch pingbranch
+ -m     ping.c
+project drivers/gps/                       branch newbranch
+project drivers/wlan/                      branch newbranch
+project others/akm/                        branch newbranch
+project others/marvell/                    branch newbranch
+project others/nfc/                        branch newbranch
+```
+
+可以看到ping.c被标记为"-m"，即被修改状态。
+
+我们使用git命令将其修改提交：
+
+```shell
+workusr@workPC:~/tag_repo/external/ping$ git add ping.c
+workusr@workPC:~/tag_repo/external/ping$ repo status
+...
+project external/apps/chromium/            branch newbranch
+project external/tcpdump/                  branch newbranch
+project external/ping/                     branch pingbranch
+ M+     ping.c
+project drivers/gps/                       branch newbranch
+project drivers/wlan/                      branch newbranch
+project others/akm/                        branch newbranch
+project others/marvell/                    branch newbranch
+project others/nfc/                        branch newbranch
+workusr@workPC:~/tag_repo/external/ping$ git commit -m "modify test"
+...
+workusr@workPC:~/tag_repo/external/ping$ repo status
+...
+project external/apps/chromium/            branch newbranch
+project external/tcpdump/                  branch newbranch
+project external/ping/                     branch pingbranch
+project drivers/gps/                       branch newbranch
+project drivers/wlan/                      branch newbranch
+project others/akm/                        branch newbranch
+project others/marvell/                    branch newbranch
+project others/nfc/                        branch newbranch
+```
+
+到此，我们已经将其修改提交到本地的版本库了。
+
+我们还可以继续将本次修改提交到远程仓库：
+
+```shell
+workusr@workPC:~/tag_repo/external/ping$ git push --all
+```
+
+我们可以在远程仓库执行`git branch`，确实是否有新提交的名为`pingbranch`的分支；可以执行`git show pingbranch`查看详细的提交信息。
+
+在子项目下，我们可以直接使用git相关指令来控制项目版本，也可以在git命令前添加`repo forall -c`来控制项目版本，两者效果相同。

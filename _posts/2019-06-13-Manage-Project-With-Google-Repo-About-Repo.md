@@ -79,6 +79,12 @@ REPO_REV = 'stable'
 ...
 ```
 
+或者在执行`repo init`时指定REPO_URL：
+
+```shell
+$ repo init -u <manifest-url> --repo-url=<repo-repository-url>
+```
+
 ### 3.2 Repo仓库本地化
 
 每次运行repo init命令时，repo将会尝试更新自己，但有时网络异常时，我们将无法连接到指定的`REPO_URL`服务器更新repo，造成无法创建仓库：
@@ -96,7 +102,7 @@ fatal: cloning the git-repo repository failed, will remove '.repo/repo'
 $ git clone --mirror https://mirrors.tuna.tsinghua.edu.cn/git/git-repo
 ```
 
-并将REPO_URL上述REPO_URL修改为指定服务器的repo仓库即可。
+并参考`3.1 修改REPO_URL`将REPO_URL上述REPO_URL修改为指定服务器的repo仓库即可。
 
 如需更新指定服务器中的repo仓库，可在指定服务器中的repo仓库下执行以下指令：
 

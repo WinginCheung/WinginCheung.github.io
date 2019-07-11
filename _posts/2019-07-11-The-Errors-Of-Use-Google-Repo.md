@@ -126,7 +126,7 @@ Fetching projects: 100% (730/730), done.
 $ find <repo-dir> -name "tmp_pack_*" | xargs -I {} rm -rf {}
 ````
 
-## 5、curl: (22) The requested URL returned error: 404 Not Found
+## 5、Server does not provide clone.bundle
 
 ```shell
 $ repo sync

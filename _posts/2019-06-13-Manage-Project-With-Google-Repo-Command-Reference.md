@@ -64,7 +64,8 @@ $ repo init -u <url> [options]
 
 * -u：指定要从中检索清单代码库的网址。若是AOSP，则可从`https://android.googlesource.com/platform/manifest` 中找到通用清单；
 * -m：选择代码库中的一个清单文件。如果未选择任何清单名称，则会默认选择 `default.xml`；
-* -b：指定修订版本，即特定的清单分支；
+* -b：指定修订版本，即特定的***清单分支***；
+* \-\-repo-url=\<repo-url\>：指定repo更新源；
 
 ## 3、repo sync
 
@@ -98,6 +99,7 @@ $ repo sync [project-list]
 - `-d`：将指定项目切换回清单修订版本。如果项目当前属于某个主题分支，但临时需要清单修订版本，则此选项会有所帮助。
 - `-s`：同步到当前清单中的 manifest-server 元素指定的一个已知良好版本。
 - `-f`：即使某个项目同步失败，也继续同步其他项目。
+- \-\-no-clone-bundle：不下载clone.bundle，详见[Server does not provide clone.bundle](http://wingincheung.github.io/2019/07/11/The-Errors-Of-Use-Google-Repo/)
 
 ## 4、repo upload
 
@@ -132,6 +134,8 @@ $ repo upload [project-list]
 上传完成后，这些更改将拥有一个额外的补丁程序集。
 
 如果您希望只上传当前已检出的 Git 分支，则可以使用标记 `--current-branch`（简称 `--cbr`）。
+
+***repo upload仅供在存在代码审核时使用，其作用为提交代码到 Gerrit code review 中。如果没有使用 Gerrit，则应手动操作单个仓库 push 或者使用 `repo forall -c git push xxx`***
 
 ## 5、repo diff
 

@@ -66,7 +66,6 @@ $ repo init -u <url> [options]
 * -m：选择代码库中的一个清单文件。如果未选择任何清单名称，则会默认选择 `default.xml`；
 * -b：指定修订版本，即特定的***清单分支***；
 * \-\-repo-url=\<repo-url\>：指定repo更新源；
-* --depth=DEPTH： 指定clone的深度，为1表示只clone最近一次commit；
 
 ## 3、repo sync
 

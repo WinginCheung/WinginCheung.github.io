@@ -108,12 +108,12 @@ tags:
 
 + 用户名称：`workusr`
 
-+ 期望的仓库目录：
++ 期望的仓库信息：
 
     ```shell
     workusr@workPC:~/tag_repo$ pwd
     /home/workusr/tag_repo
-    workusr@workPC:~/tag_repo$ tree -d
+    workusr@workPC:~/tag_repo$ tree
     .
     |-- external
     |   |-- apps
@@ -226,7 +226,17 @@ workusr@workPC:~/manifests$ vi default.xml
 ```shell
 workusr@workPC:~/manifests$ git add default.xml
 workusr@workPC:~/manifests$ git commit -m "add defaul.xml"
+[master (root-commit) d9e01db] add default.xml
+ 1 file changed, 20 insertions(+)
+ create mode 100644 default.xml
 workusr@workPC:~/manifests$ git push origin master
+Counting objects: 3, done
+Delta compression using up to 16 threads.
+Compressing objects: 100% (2/2), done
+Writing objects: 100% (3/3), 553 bytes | 553.00 KiB/s, done
+Total 3 (delta 0), reused 0 (delta 0)
+To 192.168.1.200:/home/git/repository/manifests.git
+ * [new branch]         master -> master
 ```
 
 ## 4、初始化tag_repo
@@ -322,7 +332,7 @@ workusr@workPC:~/tag_repo/external/ping$ repo status
 project external/apps/chromium/            branch newbranch
 project external/tcpdump/                  branch newbranch
 project external/ping/                     branch pingbranch
- M+     ping.c
+ M-     ping.c
 project drivers/gps/                       branch newbranch
 project drivers/wlan/                      branch newbranch
 project others/akm/                        branch newbranch
@@ -352,4 +362,4 @@ workusr@workPC:~/tag_repo/external/ping$ git push --all
 
 我们可以在远程仓库执行`git branch`，确实是否有新提交的名为`pingbranch`的分支；可以执行`git show pingbranch`查看详细的提交信息。
 
-在子项目下，我们可以直接使用git相关指令来控制项目版本，也可以在git命令前添加`repo forall -c`来控制项目版本，两者效果相同。
+我们可以直接在子项目下使用git相关指令来控制项目版本，也可以在git命令前添加`repo forall -c`来控制项目版本，***不过，后者将在所有工程中执行相关操作***。

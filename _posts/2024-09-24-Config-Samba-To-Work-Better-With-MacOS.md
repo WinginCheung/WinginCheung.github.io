@@ -13,9 +13,7 @@ tags:
 
 ---
 
-# 利用Samba实现Linux和M
-
-# acOS / IOS间的共享文件
+# 利用Samba实现Linux和MacOS / IOS间的共享文件
 
 测试环境：
 
